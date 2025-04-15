@@ -183,48 +183,58 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
       background-color: #fff;
     }
 
+    .opcion img {
+      filter: none;
+      opacity: 1;
+      transition: filter 0.3s, opacity 0.3s;
+    }
+
+    .opcion.gris img {
+      filter: grayscale(100%);
+      opacity: 0.5;
+    }
+
 
     @media (max-width: 600px) {
-  .opciones {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
+      .opciones {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
 
-  .opcion {
-    width: 90px;
-  }
+      .opcion {
+        width: 90px;
+      }
 
-  .opcion label img {
-    width: 80px;
-    height: 80px;
-  }
+      .opcion label img {
+        width: 80px;
+        height: 80px;
+      }
 
-  .opcion span {
-    font-size: 14px;
-  }
+      .opcion span {
+        font-size: 14px;
+      }
 
-  input[type="email"],
-  button[type="submit"] {
-    width: 90%;
-    font-size: 16px;
-  }
+      input[type="email"],
+      button[type="submit"] {
+        width: 90%;
+        font-size: 16px;
+      }
 
-  .btn-title {
-    width: 90%;
-    max-width: 300px;
-    font-size: 16px;
-  }
+      .btn-title {
+        width: 90%;
+        max-width: 300px;
+        font-size: 16px;
+      }
 
-  .header h1 {
-    font-size: 32px;
-  }
+      .header h1 {
+        font-size: 32px;
+      }
 
-  .header p {
-    font-size: 18px;
-  }
-}
-
+      .header p {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 
@@ -274,6 +284,27 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <button type="submit">Enviar</button>
   </form>
+
+  <script>
+document.querySelectorAll('.bloque-pregunta').forEach(pregunta => {
+  const radios = pregunta.querySelectorAll('input[type="radio"]');
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      // Al cambiar, primero quitar clase "gris" a todas
+      pregunta.querySelectorAll('.opcion').forEach(opcion => {
+        opcion.classList.add('gris');
+      });
+
+      // Luego quitarle la clase gris solo a la seleccionada
+      const seleccionado = radio.closest('.opcion');
+      if (seleccionado) {
+        seleccionado.classList.remove('gris');
+      }
+    });
+  });
+});
+</script>
+
 </body>
 
 </html>
