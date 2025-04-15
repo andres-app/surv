@@ -185,20 +185,46 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
     @media (max-width: 600px) {
-      .opciones {
-        flex-direction: column;
-        align-items: center;
-      }
+  .opciones {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 
-      .opcion {
-        width: 120px;
-      }
+  .opcion {
+    width: 90px;
+  }
 
-      .opcion label img {
-        width: 100px;
-        height: 100px;
-      }
-    }
+  .opcion label img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .opcion span {
+    font-size: 14px;
+  }
+
+  input[type="email"],
+  button[type="submit"] {
+    width: 90%;
+    font-size: 16px;
+  }
+
+  .btn-title {
+    width: 90%;
+    max-width: 300px;
+    font-size: 16px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+  }
+
+  .header p {
+    font-size: 18px;
+  }
+}
+
   </style>
 </head>
 
