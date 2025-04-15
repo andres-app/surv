@@ -194,6 +194,46 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
       opacity: 0.5;
     }
 
+    .pantalla-inicial {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100dvh;
+      /* usa 100dvh para altura visible real */
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .banner-fondo {
+      width: 100%;
+      height: 100%;
+      background: url('/surv/assets/img/banner_inicial.png') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 40px;
+    }
+
+    #btn-empezar {
+      background: #00aaff;
+      color: white;
+      border: none;
+      padding: 20px 60px;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease;
+    }
+
+    #btn-empezar:hover {
+      transform: scale(1.05);
+    }
+
 
     @media (max-width: 600px) {
       .opciones {
@@ -239,6 +279,13 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+
+  <div id="intro" class="pantalla-inicial">
+    <div class="banner-fondo">
+      <button id="btn-empezar">¡EMPEZAR!</button>
+    </div>
+  </div>
+
   <div class="header">
     <div class="header-content">
       <h1>BAS FOOD</h1>
@@ -286,24 +333,28 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </form>
 
   <script>
-document.querySelectorAll('.bloque-pregunta').forEach(pregunta => {
-  const radios = pregunta.querySelectorAll('input[type="radio"]');
-  radios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      // Al cambiar, primero quitar clase "gris" a todas
-      pregunta.querySelectorAll('.opcion').forEach(opcion => {
-        opcion.classList.add('gris');
-      });
+    document.querySelectorAll('.bloque-pregunta').forEach(pregunta => {
+      const radios = pregunta.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          // Al cambiar, primero quitar clase "gris" a todas
+          pregunta.querySelectorAll('.opcion').forEach(opcion => {
+            opcion.classList.add('gris');
+          });
 
-      // Luego quitarle la clase gris solo a la seleccionada
-      const seleccionado = radio.closest('.opcion');
-      if (seleccionado) {
-        seleccionado.classList.remove('gris');
-      }
+          // Luego quitarle la clase gris solo a la seleccionada
+          const seleccionado = radio.closest('.opcion');
+          if (seleccionado) {
+            seleccionado.classList.remove('gris');
+          }
+        });
+      });
     });
-  });
-});
-</script>
+
+    document.getElementById('btn-empezar').addEventListener('click', function() {
+      document.getElementById('intro').style.display = 'none';
+    });
+  </script>
 
 </body>
 
