@@ -20,19 +20,36 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
       box-sizing: border-box;
     }
 
+    html,
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #fff;
+      width: 100%;
+      overflow-x: hidden;
       margin: 0;
       padding: 0;
-      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      background-color: #fff;
     }
 
     .header {
-      background: url('../assets/img/banner.png') no-repeat center center;
+      background: url('/surv/assets/img/banner.png') no-repeat center center;
       background-size: cover;
+      background-position: center;
       color: white;
-      padding: 60px 20px 30px;
+      min-height: 310px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 40px 20px 40px;
+    }
+
+
+
+
+    .header-content {
+      text-align: center;
     }
 
     .header h1 {
@@ -59,6 +76,13 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
       font-size: 20px;
       margin-top: 15px;
       cursor: default;
+    }
+
+    form {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
     }
 
     .bloque-pregunta {
@@ -148,6 +172,18 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
       cursor: pointer;
     }
 
+    .linea-azul {
+      height: 10px;
+      background-color: #00aaff;
+      width: 100%;
+    }
+
+    .boton-terminamos {
+      text-align: center;
+      background-color: #fff;
+    }
+
+
     @media (max-width: 600px) {
       .opciones {
         flex-direction: column;
@@ -168,10 +204,19 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
   <div class="header">
-    <h1>BAS FOOD</h1>
-    <p>Comer es Amar</p>
-    <div><button class="btn-title">¡YA CASI TERMINAMOS!</button></div>
+    <div class="header-content">
+      <h1>BAS FOOD</h1>
+      <p>Comer es Amar</p>
+    </div>
   </div>
+
+  <div class="linea-azul"></div>
+
+  <div class="boton-terminamos">
+    <button class="btn-title">¡YA CASI TERMINAMOS!</button>
+  </div>
+
+
   <form action="gracias.php" method="POST">
     <?php foreach ($preguntas as $pregunta): ?>
       <div class="bloque-pregunta">
