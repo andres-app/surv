@@ -158,6 +158,7 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
       background: #333;
       color: white;
       font-size: 18px;
+      text-align: center; /* ✅ centra el texto dentro del input */
     }
 
     button[type="submit"] {
@@ -286,51 +287,54 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 
-  <div class="header">
-    <div class="header-content">
-      <h1>BAS FOOD</h1>
-      <p>Comer es Amar</p>
-    </div>
-  </div>
+  <div id="encuesta-wrapper" style="display: none;">
 
-  <div class="linea-azul"></div>
-
-  <div class="boton-terminamos">
-    <button class="btn-title">¡YA CASI TERMINAMOS!</button>
-  </div>
-
-
-  <form action="gracias.php" method="POST">
-    <?php foreach ($preguntas as $pregunta): ?>
-      <div class="bloque-pregunta">
-        <div class="titulo-pregunta"><?= htmlspecialchars($pregunta['pregunta']) ?></div>
-        <div class="opciones">
-          <?php
-          $respuestas = [
-            ['muy_bueno.png', 'Muy Bueno', 'muy-bueno'],
-            ['bueno.png', 'Bueno', 'bueno'],
-            ['regular.png', 'Regular', 'regular'],
-            ['malo.png', 'Malo', 'malo'],
-            ['muy_malo.png', 'Muy Malo', 'muy-malo']
-          ];
-          foreach ($respuestas as [$emoji, $text, $class]):
-          ?>
-            <div class="opcion <?= $class ?>">
-              <input type="radio" id="q<?= $pregunta['id'] ?>_<?= $text ?>" name="respuesta_<?= $pregunta['id'] ?>" value="<?= $text ?>" required>
-              <label for="q<?= $pregunta['id'] ?>_<?= $text ?>">
-                <img src="/surv/assets/img/<?= htmlspecialchars($emoji) ?>" alt="<?= htmlspecialchars($text) ?>">
-              </label>
-              <span><?= $text ?></span>
-            </div>
-          <?php endforeach; ?>
-        </div>
+    <div class="header">
+      <div class="header-content">
+        <h1>BAS FOOD</h1>
+        <p>Comer es Amar</p>
       </div>
-    <?php endforeach; ?>
-    <div class="email-box">
-      <input type="email" name="email_cliente" placeholder="Ingrese su e-mail" required>
     </div>
-    <button type="submit">Enviar</button>
-  </form>
+
+    <div class="linea-azul"></div>
+
+    <div class="boton-terminamos">
+      <button class="btn-title">¡EMPECEMOS!</button>
+    </div>
+
+
+    <form action="gracias.php" method="POST">
+      <?php foreach ($preguntas as $pregunta): ?>
+        <div class="bloque-pregunta">
+          <div class="titulo-pregunta"><?= htmlspecialchars($pregunta['pregunta']) ?></div>
+          <div class="opciones">
+            <?php
+            $respuestas = [
+              ['muy_bueno.png', 'Muy Bueno', 'muy-bueno'],
+              ['bueno.png', 'Bueno', 'bueno'],
+              ['regular.png', 'Regular', 'regular'],
+              ['malo.png', 'Malo', 'malo'],
+              ['muy_malo.png', 'Muy Malo', 'muy-malo']
+            ];
+            foreach ($respuestas as [$emoji, $text, $class]):
+            ?>
+              <div class="opcion <?= $class ?>">
+                <input type="radio" id="q<?= $pregunta['id'] ?>_<?= $text ?>" name="respuesta_<?= $pregunta['id'] ?>" value="<?= $text ?>" required>
+                <label for="q<?= $pregunta['id'] ?>_<?= $text ?>">
+                  <img src="/surv/assets/img/<?= htmlspecialchars($emoji) ?>" alt="<?= htmlspecialchars($text) ?>">
+                </label>
+                <span><?= $text ?></span>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      <?php endforeach; ?>
+      <div class="email-box">
+        <input type="email" name="email_cliente" placeholder="Ingrese su e-mail" required>
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
 
   <script>
     document.querySelectorAll('.bloque-pregunta').forEach(pregunta => {
@@ -351,9 +355,11 @@ $preguntas = $stmt->fetchAll(PDO::FETCH_ASSOC);
       });
     });
 
-    document.getElementById('btn-empezar').addEventListener('click', function() {
-      document.getElementById('intro').style.display = 'none';
-    });
+    document.getElementById('btn-empezar').addEventListener('click', function () {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('encuesta-wrapper').style.display = 'block';
+});
+
   </script>
 
 </body>
